@@ -18,7 +18,7 @@ export default function AppTextStatus ({text} : AppTextStatusProps) {
         sx={{
           margin: 0,
           padding: 5,
-          color: '#6e5f55'
+          color: '#0A5F38'
         }}
         gutterBottom
       >
