@@ -48,7 +48,7 @@ export default function ProductsViewPage() {
           products.length !== 0
           ?
             products.map((product) => (
-              <CardProduct 
+              product.quantity !== 0 && <CardProduct 
                 key={product.id}
                 product={product}
                 orderQuantity={undefined}

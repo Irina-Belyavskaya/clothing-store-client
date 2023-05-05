@@ -88,7 +88,11 @@ export default function CartTable() {
 
     const handleAddQuantity = (cart: CartDtoType) => {
         const newQuantity = cart.quantity + 1;
-        const dto: UpdateProductType = { quantity: newQuantity, recordId: cart.id }
+        const dto: UpdateProductType = { 
+            quantity: newQuantity, 
+            recordId: cart.id, 
+            productQuantity: cart.products.quantity
+        }
         dispatch(updateProductQuantity({ dto }))
             .then(({ meta }) => {
                 if (meta.requestStatus !== 'rejected') {
@@ -99,7 +103,11 @@ export default function CartTable() {
 
     const handleRemoveQuantity = (cart: CartDtoType) => {
         const newQuantity = cart.quantity - 1;
-        const dto: UpdateProductType = { quantity: newQuantity, recordId: cart.id }
+        const dto: UpdateProductType = { 
+            quantity: newQuantity, 
+            recordId: cart.id, 
+            productQuantity: cart.products.quantity 
+        }
         dispatch(updateProductQuantity({ dto }))
         .then(({ meta }) => {
             if (meta.requestStatus !== 'rejected') {
@@ -249,6 +257,7 @@ export default function CartTable() {
                             sx={{ 
                                 marginLeft: "auto", 
                                 marginTop: '20px',
+                                mb: 1,
                                 color: 'white', 
                                 bgcolor: '#0A5F38',
                                 '&:hover': {

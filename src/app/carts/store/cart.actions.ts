@@ -33,7 +33,7 @@ export const updateProductQuantity = createAsyncThunk<UpdateProductType, { dto: 
             const response = await repository.put('/cart', dto, headers);
             return response.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue('Can`t update product quantity')
+            return thunkAPI.rejectWithValue('Product limit exceeded')
         }
     }
 );

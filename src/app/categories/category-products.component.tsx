@@ -43,7 +43,7 @@ export default function CategoryProducts({ categoryId }: CategoryProductsProps) 
           products.length !== 0
             ?
             products.map((product) => (
-              <div data-testid='cardProd' key={product.id}>
+              product.quantity !== 0 && <div data-testid='cardProd' key={product.id}>
                 <CardProduct
                   key={product.id}
                   product={product}
