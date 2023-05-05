@@ -3,22 +3,22 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useState } from "react";
 
 // ============== Redux ==============
-import { useAppDispatch } from "../hooks/redux";
-import { addProductToCart } from "../app/carts/store/cart.actions";
-import { useUserCartSelector } from "app/carts/store/cart.selectors";
+import { useAppDispatch } from "hooks/redux";
+import { addProductToCart } from "app/carts/store/cart.actions";
 
 // ============== Types ==============
 import { CardProduсtParams } from "types/card-product.type";
-
-// ============== Components ==============
-import ErrorAlert from "./error-alert.component";
-import SuccessModalWindow from "./success-modal-window.component";
-import ProductInfoCard from "app/products/product-info-card.component";
+import { useUserCartSelector } from "app/carts/store/cart.selectors";
 
 // ============== Cookies ==============
 import Cookies from "js-cookie";
 
-export default function CardProduct({product, orderQuantity} : CardProduсtParams) {
+// ============== Components ==============
+import ProductInfoCard from "app/products/product-info-card.component";
+import SuccessModalWindow from "components/success-modal-window.component";
+import ErrorAlert from "components/error-alert.component";
+
+export default function OrderProductCard({product, orderQuantity} : CardProduсtParams) {
   const dispatch = useAppDispatch();
   const { errors } = useUserCartSelector();
 
@@ -33,42 +33,18 @@ export default function CardProduct({product, orderQuantity} : CardProduсtParam
   }
 
   const [openCard, setOpenCard] = useState(false);
-
-  const handleAddProduct = () => {
-    setOpenCard(false);
-    const dto = { quantity: 1, productId: product.id }
-    dispatch(addProductToCart({ dto }))
-      .then(({ meta }) => {
-        if (meta.requestStatus !== 'rejected') {
-          handleOpen();
-        }
-      })
-  }
-
   const closeCard = () => setOpenCard(false);
 
   return (
     <>
       <Card 
-        sx={{ 
-          width: 300, 
-          padding: 2, 
-          bgcolor: '#0E8E53', 
-          '&:hover': {
-            transform: 'scale(1.01)',
-            transition: '0.3s ease-in-out'
-          },
-          '&:not(:hover)': {
-            transform: 'scale(1)',
-            transition: '0.3s ease-in-out'
-          } 
-        }}
+        sx={{ padding: 1, bgcolor: '#0E8E53', display: 'flex' }}
         onClick={() => setOpenCard(true)}
       >
         <CardMedia
           component="img"
           sx={{
-            height: 300,
+            width: 100,
             marginLeft: 'auto',
             marginRight: 'auto'
           }}
@@ -77,7 +53,7 @@ export default function CardProduct({product, orderQuantity} : CardProduсtParam
           alt={product.name}
         />
         <CardContent sx={{color: "white"}}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h6" gutterBottom>
             {product.name}
           </Typography>
           <Typography 
@@ -98,22 +74,10 @@ export default function CardProduct({product, orderQuantity} : CardProduсtParam
           }
           <Typography variant="body2">
             {product.price}$
-          </Typography>
+          </Typography> 
         </CardContent>
-        {Cookies.get('access_token_client') &&
-          <CardActions>
-            <Button size="medium" sx={{ color: 'white' }} onClick={handleAddProduct}>
-              <AddShoppingCartIcon />
-            </Button>
-          </CardActions>
-        }
         {errors.productInCart && <ErrorAlert title="Error" text={errors.productInCart} />}
       </Card>
-      <SuccessModalWindow 
-        text={'Clothes in your cart.'} 
-        handleClose={handleClose} 
-        isOpen={open}
-      />
       {openCard && !open && <ProductInfoCard product={product} isOpen={openCard} handle={closeCard}/>}
     </>
   );
