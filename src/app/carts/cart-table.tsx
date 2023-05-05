@@ -134,7 +134,7 @@ export default function CartTable() {
                                     <TableRow>
                                         {columns.map((column) => (
                                             <TableCell
-                                            data-testid='cell'
+                                                data-testid='cell'
                                                 key={column.id}
                                                 align={column.align}
                                                 style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
@@ -181,6 +181,32 @@ export default function CartTable() {
                                                                     {column.format && typeof quantity === 'number'
                                                                         ? column.format(quantity)
                                                                         : quantity}
+                                                                </TableCell>
+                                                            );
+                                                        }
+
+                                                        if (column.id === "size") {
+                                                            return (
+                                                                <TableCell key={column.id} align={column.align}>
+                                                                    {cart.products.size}
+                                                                </TableCell>
+                                                            );
+                                                        }
+
+                                                        if (column.id === "color") {
+                                                            return (
+                                                                <TableCell key={column.id} align={column.align}>
+                                                                    <Grid 
+                                                                        sx={{
+                                                                            mr:'auto',
+                                                                            ml: 'auto',
+                                                                            width: 25, 
+                                                                            height: 25, 
+                                                                            bgcolor: cart.products.color,
+                                                                            borderRadius: '50%',
+                                                                            border: '1px solid white'
+                                                                        }}
+                                                                    />
                                                                 </TableCell>
                                                             );
                                                         }
