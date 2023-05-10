@@ -80,6 +80,17 @@ export default function ContentUserOrdersPage() {
                                         orderQuantity={product.quantity}
                                     />                                        
                                 ))}
+                                <Typography
+                                    gutterBottom
+                                    sx={{
+                                        textAlign: 'end',
+                                        width: '100%',
+                                        marginBottom: 2,
+                                        color: '#0A5F38'
+                                    }}
+                                >
+                                    {new Date(order.created).toUTCString()}
+                                </Typography>
                             </Grid>
                         ))
                     :

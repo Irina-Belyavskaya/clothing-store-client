@@ -15,7 +15,6 @@ import CardProduct from "components/card-product.component";
 import AppTextStatus from "components/app-text-status.component";
 import ErrorAlert from "components/error-alert.component";
 import Loading from "components/loading.component";
-import ProductInfoCard from "./product-info-card.component";
 
 export default function ProductsViewPage() {
   const dispatch = useAppDispatch();
